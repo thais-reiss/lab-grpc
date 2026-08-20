@@ -1,6 +1,6 @@
 # Respostas
 
-## Parte A
+## Parte A - Transparências em Sistemas Distribuídos
 
 ### 4.1
 
@@ -29,3 +29,9 @@ A transparência de acesso, porque observei nos exercícios anteriores que, como
 Não, a transparência total nem sempre é desejável, pois ocultar completamente que uma operação é remota pode dificultar o tratamento de problemas de desempenho ou de falhas. Por exemplo, em um e-commerce, durante o pagamento, o processamento pode depender de um serviço remoto de uma empresa de pagamentos. Se o sistema esconder completamente essa dependência, uma demora ou indisponibilidade pode fazer o usuário pensar que o próprio e-commerce está travado e tentar realizar o pagamento várias vezes. Informar que o pagamento está sendo processado por um serviço externo pode permitir um tratamento mais adequado da situação e tornar o comportamento do sistema mais compreensível. 
 
 **3.(Responder depois de concluir as Partes C e D) Comparando o cliente TCP do laboratório anterior com o cliente gRPC que você vai construir agora: qual dos dois exige que você “pense em rede” (sockets, send/receive, parsing de string) e qual permite que você “pense no problema” (chamar uma função e receber um resultado)? A que tipo de transparência isso se relaciona?**
+
+
+## Parte B - Protocol Buffers e o contrato do serviço
+ 
+
+

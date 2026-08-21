@@ -30,6 +30,8 @@ Não, a transparência total nem sempre é desejável, pois ocultar completament
 
 **3.(Responder depois de concluir as Partes C e D) Comparando o cliente TCP do laboratório anterior com o cliente gRPC que você vai construir agora: qual dos dois exige que você “pense em rede” (sockets, send/receive, parsing de string) e qual permite que você “pense no problema” (chamar uma função e receber um resultado)? A que tipo de transparência isso se relaciona?**
 
+O cliente TCP do laboratório anterior foi o que exigiu que eu pensasse em redes, pois, no código-fonte, havia métodos para converter strings em bytes e vice-versa. O servidor, além de ter essa preocupação, também precisava fazer o parsing das strings e interpretá-las corretamente. Já o cliente gRPC é o que permite que o foco esteja no problema, pois toda essa parte relacionada à rede, como as conversões dos dados, é feita pelo código gerado automaticamente a partir do contrato definido. Isso se relaciona à transparência de acesso, pois, no caso do gRPC, tudo é feito por meio de chamadas a métodos comuns. Dessa forma, o programador não precisa saber se está acessando um recurso local ou remoto, pois não precisa "pensar em rede".
+
 
 ## Parte B - Protocol Buffers e o contrato do serviço
  

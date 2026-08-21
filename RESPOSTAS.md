@@ -32,6 +32,7 @@ Não, a transparência total nem sempre é desejável, pois ocultar completament
 
 O cliente TCP do laboratório anterior foi o que exigiu que eu pensasse em redes, pois, no código-fonte, havia métodos para converter strings em bytes e vice-versa. O servidor, além de ter essa preocupação, também precisava fazer o parsing das strings e interpretá-las corretamente. Já o cliente gRPC é o que permite que o foco esteja no problema, pois toda essa parte relacionada à rede, como as conversões dos dados, é feita pelo código gerado automaticamente a partir do contrato definido. Isso se relaciona à transparência de acesso, pois, no caso do gRPC, tudo é feito por meio de chamadas a métodos comuns. Dessa forma, o programador não precisa saber se está acessando um recurso local ou remoto, pois não precisa "pensar em rede".
 
+---
 
 ## Parte B - Protocol Buffers e o contrato do serviço
  
@@ -47,6 +48,8 @@ Sugere que um servidor escrito por uma equipe em uma linguagem consegue se comun
 
 Primeiro, eu olhei o arquivo CentralAtendimentoGrpc.java, e inicialmente achei confuso, com muitas linhas de código e com métodos que eu não conheço. Mas, ainda assim, consegui reconhecer a primeira classe, que é a CentralAtendimentoGrpc e, logo depois, o seu construtor, e notei que ele é privado, ou seja, essa classe não pode ser instanciada por outra classe. Além disso, ela tem muitas anotações, e consegui identificar métodos como getConsultarHorarioMethod e getAcompanharAvisosMethod. Ela também cria alguns stubs, como o CentralAtendimentoStub, CentralAtendimentoBlockingStub e CentralAtendimentoFutureStub. Também reconheci alguns métodos default, que são consultarHorario e acompanharAvisos, dentro de uma classe chamada AsyncService. Depois, fui olhar o arquivo central_pb2_grpc.py, e ele me pareceu mais limpo que o do java. Esse arquivo se inicia com uma classe que representa um stub, a CentralAtendimentoStub, que tem apenas um construtor. É na segunda classe do arquivo, a CentralAtendimentoServicer, que é onde ficam definidas as operações de ConsultarHorario e AcompanharAvisos, pois ela tem justamente métodos com os nomes ConsultarHorario e AcompanharAvisos. Depois, há uma classe que chamada CentralAtendimento, com métodos estáticos chamados ConsultarHorario e AcompanharAvisos, que serve como uma forma alternativa de o cliente chamar as operações sem precisar criar um objeto stub primeiro.
 
+---
+
 ## Parte C - RPC unário
 
 **1. No cliente, a linha stub.consultarHorario(pergunta) (Java) ou stub.ConsultarHorario(...) (Python) parece uma chamada de método comum. Cite, em alto nível, pelo menos três coisas que acontecem “por baixo dos panos” entre essa chamada e o return da função no servidor.**
@@ -60,6 +63,8 @@ Estava diretamente no código-fonte do cliente e do servidor, o cliente montava 
 **3. O que aconteceria se você chamasse stub.consultarHorario(pergunta) com o servidor desligado? Teste e descreva o comportamento observado (em qualquer uma das duas linguagens).**
 
 Eu realizei o teste usando a linguagem python, rodei o terminal do cliente com o servidor desligado. Com isso, foi lançada uma exceção específica do gRPC, chamada _InactiveRpcError, com código de status igual a StatusCode.UNAVAILABLE e apareceu uma mensagem, que foi a "failed to connect to all addresses ... Connection refused", indicando que não foi possível estabelecer conexão com o endereço e porta do servidor. Assim, observei que o terminal não ficou simplesmente travado, como aconteceu em alguns casos do laboratório anterior. Nesse caso, o gRPC identificou o tipo de falha, e isso é vantajoso porque permite tratar esse erro no código. 
+
+---
 
 ## Parte D - RPC com streaming de servidor
 
